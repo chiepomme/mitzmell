@@ -1,5 +1,4 @@
-﻿using System;
-using Mitzmell.UI;
+﻿using Mitzmell.UI;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -30,7 +29,7 @@ namespace Mitzmell
             gazingSeconds += Time.deltaTime;
             if (gazingSeconds < SecondsNeededToComplete) return;
 
-            print("gazed!");
+            OnGazeCompleted.Invoke();
             GazeInProgress = false;
         }
 
