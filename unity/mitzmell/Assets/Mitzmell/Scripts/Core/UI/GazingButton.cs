@@ -1,33 +1,42 @@
-﻿using UnityEngine;
+﻿using System;
+using Mitzmell.UI;
+using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 namespace Mitzmell
 {
-    class GazingButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IGvrPointerHoverHandler
+    class GazingButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IGvrPointerHoverHandler, IHasGazingProgress
     {
-        bool isGazing;
+        const float SecondsNeededToComplete = 1.5f;
+
         float gazingSeconds;
+
+        public readonly UnityEvent OnGazeCompleted = new UnityEvent();
+
+        bool GazeInProgress { get; set; }
+        public float GazeProgressionRate { get { return gazingSeconds / SecondsNeededToComplete; } }
 
         public void OnPointerEnter(PointerEventData eventData)
         {
             gazingSeconds = 0f;
-            isGazing = true;
+            GazeInProgress = true;
         }
 
         public void OnGvrPointerHover(PointerEventData eventData)
         {
-            if (!isGazing) return;
+            if (!GazeInProgress) return;
 
             gazingSeconds += Time.deltaTime;
-            if (gazingSeconds < 1f) return;
+            if (gazingSeconds < SecondsNeededToComplete) return;
 
             print("gazed!");
-            isGazing = false;
+            GazeInProgress = false;
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            isGazing = false;
+            GazeInProgress = false;
         }
     }
 }
