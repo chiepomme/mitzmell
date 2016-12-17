@@ -25,7 +25,7 @@ namespace Mitzmell
 
         public void GoNext()
         {
-            SceneTransit.TransitTo(Scenes.Title);
+            SceneTransit.TransitTo(Scenes.MainMenu);
         }
     }
 }
