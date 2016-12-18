@@ -9,5 +9,6 @@ namespace Mitzmell
         public Texture LargeThumbnail;
         public string AuthorUrl;
         public string DownloadPath;
+        public AudioClip PreviewClip;
     }
 }
