@@ -12,6 +12,8 @@ namespace Mitzmell
         float gazingSeconds;
 
         public readonly UnityEvent OnGazeCompleted = new UnityEvent();
+        public readonly UnityEvent OnGazeStarted = new UnityEvent();
+        public readonly UnityEvent OnGazeEnded = new UnityEvent();
 
         bool GazeInProgress { get; set; }
         public float GazeProgressionRate { get { return gazingSeconds / SecondsNeededToComplete; } }
@@ -20,6 +22,7 @@ namespace Mitzmell
         {
             gazingSeconds = 0f;
             GazeInProgress = true;
+            OnGazeStarted.Invoke();
         }
 
         public void OnGvrPointerHover(PointerEventData eventData)
@@ -36,6 +39,7 @@ namespace Mitzmell
         public void OnPointerExit(PointerEventData eventData)
         {
             GazeInProgress = false;
+            OnGazeEnded.Invoke();
         }
     }
 }
